@@ -67,6 +67,14 @@ if (GLM_BUILD_LIBRARY)
 		${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
 		${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER}
 	)
+	target_include_directories(glm
+    PRIVATE
+        # where the library itself will look for its internal headers
+        ${CMAKE_CURRENT_SOURCE_DIR}/../
+    PUBLIC
+        # where top-level project will look for the library's public headers
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
+	)
 	add_library(glm::glm ALIAS glm)
 	target_link_libraries(glm PUBLIC glm-header-only)
 else()
